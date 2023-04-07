@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notepad_pro/screens/Home.dart';
+import 'package:notepad_pro/screens/Login.dart';
 import 'package:notepad_pro/screens/Register.dart';
 import 'package:notepad_pro/screens/Welcome.dart';
 
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
       initialRoute: Welcome.id,
       routes: {
         Welcome.id:(context) => const Welcome(),
-        Login.id:(context) => const Login()
+        Register.id:(context) => const Register(),
+        Login.id:(context) => const Login(),
+        Home.id:(context) => const Home()
       },
     );
   }

@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notepad_pro/components/Form.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
-  static final  String id=  "loginid";
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
+  static const  String id =  "loginid";
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold
               ),),
-            CustomForm()
+            CustomForm(register: true,)
             ],
           ),
         ),

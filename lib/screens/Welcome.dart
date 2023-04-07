@@ -28,7 +28,7 @@ class Welcome extends StatelessWidget {
                       if (kDebugMode) {
                         print("Next page");
                       }
-                      Navigator.pushNamed(context, Login.id);
+                      Navigator.pushNamed(context, Register.id);
                     },
                     child: Row(
                       children: const [
