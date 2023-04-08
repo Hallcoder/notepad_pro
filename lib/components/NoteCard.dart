@@ -19,15 +19,15 @@ class _NoteCardState extends State<NoteCard> {
         margin: EdgeInsets.all(4.0),
         width: 400.0,
         height: 60.0,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), color: Colors.lightBlueAccent,),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), color: Colors.yellow[100],),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text('Morning Workout is Good',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold,fontFamily: 'Poppins')),
             Text(
               'April 6, 2023 05:13 PM',
-              style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w100),
+              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w100,fontFamily: 'Poppins'),
             )
           ],
         ),

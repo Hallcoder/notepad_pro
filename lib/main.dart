@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notepad_pro/screens/CreateNote.dart';
 import 'package:notepad_pro/screens/Home.dart';
 import 'package:notepad_pro/screens/Login.dart';
 import 'package:notepad_pro/screens/Register.dart';
+import 'package:notepad_pro/screens/Settings.dart';
 import 'package:notepad_pro/screens/Welcome.dart';
 
 void main() {
@@ -33,7 +35,9 @@ class MyApp extends StatelessWidget {
         Welcome.id:(context) => const Welcome(),
         Register.id:(context) => const Register(),
         Login.id:(context) => const Login(),
-        Home.id:(context) => const Home()
+        Home.id:(context) => const Home(),
+        CreateNote.id:(context) => const CreateNote(),
+        Settings.id:(context) => const Settings()
       },
     );
   }

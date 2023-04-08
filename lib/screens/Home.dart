@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notepad_pro/components/NoteCard.dart';
+import 'package:notepad_pro/screens/CreateNote.dart';
+import 'package:notepad_pro/screens/Settings.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +16,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //go to create note page with no arguments
+          Navigator.pushNamed(context, CreateNote.id);
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -22,7 +35,9 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Settings.id);
+              },
               icon: const Icon(
                 Icons.settings,
                 color: Colors.black,
@@ -40,17 +55,19 @@ class _HomeState extends State<Home> {
                 ),
                 itemBuilder: (BuildContext context) => [
                       const PopupMenuItem(child: Text('Profile')),
-                      const PopupMenuItem(child: Text('About'))
+                      const PopupMenuItem(child: Text('About')),
+                  
                     ])
           ],
         ),
       ),
       body: SafeArea(
-        child: ListView(
-          children:[
-            Column(
+        child: ListView(children: [
+          Column(
             children: [
-              Container(margin:EdgeInsets.all(4.0),child: CupertinoSearchTextField()),
+              Container(
+                  margin: EdgeInsets.all(4.0),
+                  child: CupertinoSearchTextField()),
               NoteCard(),
               NoteCard(),
               NoteCard(),
@@ -59,10 +76,13 @@ class _HomeState extends State<Home> {
               NoteCard(),
               NoteCard(),
               NoteCard(),
+              NoteCard(),
+              NoteCard(),
+              NoteCard(),
+              NoteCard()
             ],
           ),
-      ]
-        ),
+        ]),
       ),
     );
   }
