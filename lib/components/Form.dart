@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notepad_pro/components/InputField.dart';
+import 'package:notepad_pro/screens/Home.dart';
 import 'package:notepad_pro/screens/Login.dart';
 import 'package:notepad_pro/screens/Register.dart';
-
-import '../screens/Home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class CustomForm extends StatefulWidget {
-  const CustomForm({Key? key, required this.register}) : super(key: key);
+  const CustomForm(
+      {Key? key, required this.register, required this.showSpinner})
+      : super(key: key);
   final bool register;
+  final void Function() showSpinner;
 
   @override
   State<CustomForm> createState() => _CustomFormState();
@@ -16,6 +21,63 @@ class CustomForm extends StatefulWidget {
 
 class _CustomFormState extends State<CustomForm> {
   final _formkey = GlobalKey<FormState>();
+  late String username;
+  late String email;
+  late String password;
+  String error = '';
+  final auth = FirebaseAuth.instance;
+
+  void handleSubmit() async {
+    try {
+      if (widget.register) {
+        widget.showSpinner();
+        final newUser = await auth.createUserWithEmailAndPassword(
+            email: email.trim(), password: password.trim());
+        if (newUser != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(newUser.user!.uid)
+              .set({username: username});
+          widget.showSpinner();
+        }
+        Navigator.pushNamed(context, Home.id);
+      } else {
+        widget.showSpinner();
+        final normalUser = auth.signInWithEmailAndPassword(
+            email: email.trim(), password: password.trim());
+        if (normalUser != null) {
+          Navigator.pushNamed(context, Home.id);
+        }
+        widget.showSpinner();
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        error = e.message!;
+        widget.showSpinner();
+      });
+    }
+  }
+
+  void handleInputChange(String input, String value) {
+    setState(() {
+      switch (input) {
+        case 'username':
+          print('Username changing');
+          username = value;
+          break;
+        case 'email':
+          print('Email changing');
+          email = value;
+          break;
+        case 'password':
+          print('Password changing');
+          password = value;
+          break;
+        default:
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,33 +85,43 @@ class _CustomFormState extends State<CustomForm> {
         key: _formkey,
         child: Column(
           children: [
+            Text(
+              error,
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+            ),
             widget.register
-                ? const TextInput(
+                ? TextInput(
+                    password: false,
+                    onChanged: handleInputChange,
                     placeholder: 'Username',
-                    icon: Icon(Icons.person),
+                    icon: const Icon(Icons.person),
                   )
                 : Container(),
-            const TextInput(
+            TextInput(
+              password: false,
               placeholder: 'Email',
-              icon: Icon(Icons.mail),
+              icon: const Icon(Icons.mail),
+              onChanged: handleInputChange,
             ),
-            const TextInput(
+            TextInput(
+              password: true,
               placeholder: 'Password',
-              icon: Icon(Icons.shield),
+              icon: const Icon(Icons.shield),
+              onChanged: handleInputChange,
             ),
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
               ),
               onPressed: () {
-                Navigator.pushNamed(context,Home.id);
+                handleSubmit();
               },
               child: Text(widget.register ? 'SIGN UP' : 'LOGIN'),
             ),
             GestureDetector(
               onTap: () {
-
-                Navigator.pushNamed(context, widget.register ? Login.id:Register.id);
+                Navigator.pushNamed(
+                    context, widget.register ? Login.id : Register.id);
               },
               child: Text(
                 widget.register
