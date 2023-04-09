@@ -21,13 +21,31 @@ class CustomForm extends StatefulWidget {
 
 class _CustomFormState extends State<CustomForm> {
   final _formkey = GlobalKey<FormState>();
-  late String username;
-  late String email;
-  late String password;
+   String username = '';
+   String email = '';
+   String password = '';
   String error = '';
   final auth = FirebaseAuth.instance;
 
   void handleSubmit() async {
+    if(email.trim().isEmpty || password.trim().isEmpty){
+      widget.showSpinner();
+      Future.delayed(Duration(milliseconds: 1000)).then((value){
+        print('They are empty lol');
+        setState(() {
+          error = 'Email or Password cannot be empty!';
+        });
+        widget.showSpinner();
+      });
+
+      Future.delayed(const Duration(milliseconds: 5000)).then((value){
+        setState(() {
+          error = '';
+        });
+        return;
+      });
+
+    }
     try {
       if (widget.register) {
         widget.showSpinner();
@@ -39,12 +57,14 @@ class _CustomFormState extends State<CustomForm> {
               .doc(newUser.user!.uid)
               .set({username: username});
           widget.showSpinner();
+          Navigator.pushNamed(context, Home.id);
         }
-        Navigator.pushNamed(context, Home.id);
       } else {
+        print('Trying to login');
         widget.showSpinner();
-        final normalUser = auth.signInWithEmailAndPassword(
+        final normalUser =  await auth.signInWithEmailAndPassword(
             email: email.trim(), password: password.trim());
+        print(normalUser);
         if (normalUser != null) {
           Navigator.pushNamed(context, Home.id);
         }
@@ -53,8 +73,8 @@ class _CustomFormState extends State<CustomForm> {
     } on FirebaseAuthException catch (e) {
       setState(() {
         error = e.message!;
-        widget.showSpinner();
       });
+      widget.showSpinner();
     }
   }
 

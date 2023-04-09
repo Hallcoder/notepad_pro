@@ -26,6 +26,16 @@ class _RegisterState extends State<Register> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
+                const Hero(
+                  tag: 'logo',
+                  child: CircleAvatar(
+                    child: Image(
+                      width: 100.0,
+                      height: 50.0,
+                      image: AssetImage('assets/logo.png'),
+                    ),
+                  ),
+                ),
                 const Text('Hello there, \nWelcome Back',style: TextStyle(
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold

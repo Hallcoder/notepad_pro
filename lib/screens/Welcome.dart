@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:notepad_pro/screens/Register.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -17,11 +18,25 @@ class Welcome extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                    child: Image(image: AssetImage('assets/images.jpeg'))),
-                const Text(
-                  'Notepad_Pro',
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+                const Hero(
+                  tag: 'logo',
+                  child: CircleAvatar(
+                    radius: 20.0,
+                    child: Image(
+                      fit: BoxFit.fill,
+                      width: 100.0,
+                      height: 50.0,
+                      image: AssetImage('assets/logo.png'),
+                    ),
+                  ),
+                ),
+                AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText('Notepad_Pro🖊️',
+                        speed: Duration(milliseconds: 100),
+                        textStyle: const TextStyle(
+                            fontSize: 30.0, fontWeight: FontWeight.bold)),
+                  ],
                 ),
                 Container(
                   width: 100.0,
