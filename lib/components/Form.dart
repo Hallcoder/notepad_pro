@@ -6,7 +6,6 @@ import 'package:notepad_pro/screens/Login.dart';
 import 'package:notepad_pro/screens/Register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class CustomForm extends StatefulWidget {
   const CustomForm(

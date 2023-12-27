@@ -1,4 +1,4 @@
-name: Notepad Pro
+name: notepad_pro
 description: A notepad application which is advanced
 
 # The following line prevents the package from being accidentally published to
@@ -42,7 +42,7 @@ dev_dependencies:
   firebase_core: ^2.8.0
   firebase_auth: ^4.3.0
   cloud_firestore: ^4.4.5
-  modal_progress_hud: ^0.1.3
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

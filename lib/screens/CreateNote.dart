@@ -66,6 +66,16 @@ class _CreateNoteState extends State<CreateNote> {
                       border: OutlineInputBorder(), hintText: 'Description'),
                 ),
               ),
+              FloatingActionButton(onPressed: (){
+
+              },
+              child: Container(
+                child: Icon(Icons.add,color: Colors.white,),
+
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                ),
+              ),)
             ],
           ),
         ),
